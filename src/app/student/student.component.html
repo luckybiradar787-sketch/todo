@@ -1,0 +1,74 @@
+
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <h1>
+            {{isInEditMode ? "Update Student" : "Add Student"}}
+        </h1>
+    </div>
+    <div class="col-md-5 mb-5 mb-md-0 ">
+        <div class="form-group bg-danger ">
+            <label for="fname"><strong>First Name</strong></label>
+            <input type="text" #fname class="form-control" id="fname">
+        </div>
+        <div class="form-group">
+            <label for="fname"><strong>Last Name</strong></label>
+            <input type="text" #lname class="form-control" id="lname">
+        </div>
+        <div class="form-group">
+            <label for="fname"><strong>Email</strong></label>
+            <input type="text" #email class="form-control" id="email">
+        </div>
+        <button class="btn-block"
+        (click)="onStdAdd()"
+        *ngIf="!isInEditMode"
+         mat-raised-button color="primary">Add Student</button>
+        <button class="btn-block"
+        (click)="onUpdate()"
+        *ngIf="isInEditMode"
+         mat-raised-button color="warn">Update Student</button>
+    </div>
+    <div class="col-md-7">
+<div class="table-responsive">
+    <table class="table table-bordered" *ngIf="stdArr.length>0; else nostd">
+        <thead class="bg-success">
+            <tr>
+               <th>Sr No</th>
+               <th>Full Name</th>
+               <th>Last Name</th>
+               <th>Email</th>
+               <th>Edit</th>
+               <th>Remove</th>
+            </tr>
+        </thead>
+         <tbody>
+            <tr *ngFor="let std of stdArr; let i=index; trackBy:trackById" >
+                <td>{{i+1}}</td>
+                <td>{{std.fname}}</td>
+                <td>{{std.lname}}</td>
+                <td>{{std.email}}</td>
+                <td>
+                    <button 
+                    (click)="onEdit(std)"
+                    mat-mini-fab color="primary"class="mr-2" ><mat-icon>Edit</mat-icon></button>
+                </td>
+                <td>
+                    <button 
+                    (click)="onRemove(std.stdId)"
+                    mat-mini-fab color="warn" class="mr-2"><mat-icon>Delete</mat-icon></button>
+                </td>
+            </tr>
+         </tbody>
+    </table>
+
+    <ng-template #nostd>
+        <p class="alert alert-success">
+            No Student Available !!!
+        </p>
+    </ng-template>
+</div>
+    </div>
+</div>
